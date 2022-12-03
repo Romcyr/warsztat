@@ -8,7 +8,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 public class KomendaUsunMechanik implements Komenda{
-    private DataAccessObject<Pojazd> dataAccessObject;
+    private DataAccessObject<Mechanik> dataAccessObject;
 
     public KomendaUsunMechanik(){
         this.dataAccessObject = new DataAccessObject<>();}
@@ -25,21 +25,13 @@ public class KomendaUsunMechanik implements Komenda{
         String idString = Komenda.scanner.nextLine();
         Long id = Long.parseLong(idString);
 
-        try (Session session = HibernateUtil.INSTANCE.getSessionFactory().openSession()){
-            Transaction transaction = session.beginTransaction();
 
-            Mechanik mechanik = session.get(Mechanik.class, id);
-            if (mechanik != null) {
-                session.remove(mechanik);
+            if (dataAccessObject.delete(Mechanik.class, id)) {
                 System.out.println("Usunięto mechanika");
             }else {
-                System.err.println("Nie znaleziono mechanika w bazie");
+                System.err.println("Nie udało się usunąć mechanika");
             }
 
-            transaction.commit();
-        }catch (Exception ioe){
-            System.err.println("Błąd bazy: " + ioe);
-        }
 
     }
 }

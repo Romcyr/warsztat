@@ -24,21 +24,14 @@ public class KomendaUsunPojazd implements Komenda{
         String idString = Komenda.scanner.nextLine();
         Long id = Long.parseLong(idString);
 
-        try (Session session = HibernateUtil.INSTANCE.getSessionFactory().openSession()){
-            Transaction transaction = session.beginTransaction();
 
-            Pojazd pojazd = session.get(Pojazd.class, id);
-            if (pojazd != null) {
-                session.remove(pojazd);
+            if (dataAccessObject.delete(Pojazd.class, id)) {
                 System.out.println("Usunięto pojazd");
             }else {
                 System.err.println("Nie znaleziono pojazdu w bazie");
             }
 
-            transaction.commit();
-        }catch (Exception ioe){
-            System.err.println("Błąd bazy: " + ioe);
-        }
+
 
     }
 }
