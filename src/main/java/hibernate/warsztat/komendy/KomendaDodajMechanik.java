@@ -1,11 +1,18 @@
 package hibernate.warsztat.komendy;
 
+import hibernate.warsztat.DataAccessObject;
 import hibernate.warsztat.HibernateUtil;
 import hibernate.warsztat.model.Mechanik;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 public class KomendaDodajMechanik implements Komenda{
+
+    public KomendaDodajMechanik() {
+        this.dataAccessObject = new DataAccessObject();
+    }
+
+    private DataAccessObject dataAccessObject;
 
 
     @Override
@@ -29,15 +36,7 @@ public class KomendaDodajMechanik implements Komenda{
                 .kwalifikacja(kwalifikacje)
                 .specjalizacja(specjalizacje)
                 .build();
-        try (Session session = HibernateUtil.INSTANCE.getSessionFactory().openSession()) {
-            Transaction transaction = session.beginTransaction();
-
-            session.persist(mechanik);
-
-            transaction.commit();
-        }catch (Exception e){
-            System.err.println("Błąd: " + e);
-        }
+        dataAccessObject.insert(mechanik);
 
     }
 }
