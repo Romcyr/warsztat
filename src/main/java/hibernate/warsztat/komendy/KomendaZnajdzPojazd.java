@@ -2,10 +2,12 @@ package hibernate.warsztat.komendy;
 
 import hibernate.warsztat.DataAccessObject;
 import hibernate.warsztat.HibernateUtil;
+import hibernate.warsztat.model.Mechanik;
 import hibernate.warsztat.model.Pojazd;
 import org.hibernate.Session;
 
 import java.util.List;
+import java.util.Optional;
 
 public class KomendaZnajdzPojazd implements Komenda{
     private DataAccessObject<Pojazd> dataAccessObject;
@@ -27,15 +29,11 @@ public class KomendaZnajdzPojazd implements Komenda{
         Long id = Long.parseLong(idString);
 
 
-        try (Session session = HibernateUtil.INSTANCE.getSessionFactory().openSession()){
-            Pojazd pojazd = session.get(Pojazd.class, id);
-            if (pojazd != null){
-                System.out.println(pojazd);
-            }else {
-                System.err.println("Nie znaleziono auta");
-            }
-    }catch (Exception ioe){
-            System.err.println("Błąd bazy: " + ioe);
+        Optional<Pojazd> pojazdOptional = dataAccessObject.find(Pojazd.class, id);
+        if (pojazdOptional.isPresent()){
+            System.out.println(pojazdOptional.get());
+        }else {
+            System.err.println("Nie znaleziono pojazdu");
         }
 }
 }
