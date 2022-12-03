@@ -1,5 +1,6 @@
 package hibernate.warsztat.komendy;
 
+import hibernate.warsztat.DataAccessObject;
 import hibernate.warsztat.HibernateUtil;
 import hibernate.warsztat.model.Pojazd;
 import jakarta.persistence.TypedQuery;
@@ -9,22 +10,25 @@ import org.hibernate.Transaction;
 import java.util.List;
 
 public class KomendaListPojazd implements Komenda{
+    private DataAccessObject<Pojazd> dataAccessObject;
+
+    public KomendaListPojazd() {
+        this.dataAccessObject = new DataAccessObject<>();
+    }
+
+
 
 
     @Override
     public String getKomenda() {
+
         return "lista pojazd";
     }
 
     @Override
     public void obsluga() {
-        try (Session session = HibernateUtil.INSTANCE.getSessionFactory().openSession()){
-             TypedQuery<Pojazd> zapytanie = session.createQuery("FROM", Pojazd.class);
-             List<Pojazd> lista = zapytanie.getResultList();
+        List<Pojazd> pojazd = dataAccessObject.findAll(Pojazd.class);
+        pojazd.forEach(System.out::println);
 
-             lista.forEach(System.out::println);
-             }catch (Exception e){
-        System.err.println("Błąd: " + e);
-        }
     }
 }
