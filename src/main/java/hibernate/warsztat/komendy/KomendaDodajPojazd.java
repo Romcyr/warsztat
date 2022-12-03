@@ -8,11 +8,14 @@ import org.hibernate.Transaction;
 
 public class KomendaDodajPojazd implements Komenda {
 
-    private DataAccessObject dataAccessObject;
-
     public KomendaDodajPojazd() {
-        this.dataAccessObject = dataAccessObject;
+
+        this.dataAccessObject = new DataAccessObject<>();
     }
+
+    private DataAccessObject<Pojazd> dataAccessObject;
+
+
 
     @Override
     public String getKomenda(){

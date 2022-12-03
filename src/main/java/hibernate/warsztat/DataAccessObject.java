@@ -3,9 +3,9 @@ package hibernate.warsztat;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-public class DataAccessObject {
+public class DataAccessObject <T>{
 
-    public void insert(Object obiektDoWstawieniaDoBazy){
+    public void insert(T obiektDoWstawieniaDoBazy){
         try (Session session = HibernateUtil.INSTANCE.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
 

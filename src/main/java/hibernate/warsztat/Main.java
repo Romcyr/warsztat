@@ -1,8 +1,6 @@
 package hibernate.warsztat;
 
-import hibernate.warsztat.komendy.Komenda;
-import hibernate.warsztat.komendy.KomendaDodajMechanik;
-import hibernate.warsztat.komendy.KomendaDodajPojazd;
+import hibernate.warsztat.komendy.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +11,9 @@ public class Main {
         List<Komenda> listaKomend = new ArrayList<>(
                 List.of(
                         new KomendaDodajPojazd(),
-                        new KomendaDodajMechanik()
+                        new KomendaDodajMechanik(),
+                        new KomendaListPojazd(),
+                        new KomendaListMechanik()
 
                 )
         );

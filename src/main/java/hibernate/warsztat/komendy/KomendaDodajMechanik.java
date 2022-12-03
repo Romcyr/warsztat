@@ -9,10 +9,11 @@ import org.hibernate.Transaction;
 public class KomendaDodajMechanik implements Komenda{
 
     public KomendaDodajMechanik() {
-        this.dataAccessObject = new DataAccessObject();
+
+        this.dataAccessObject = new DataAccessObject<>();
     }
 
-    private DataAccessObject dataAccessObject;
+    private DataAccessObject<Mechanik> dataAccessObject;
 
 
     @Override
