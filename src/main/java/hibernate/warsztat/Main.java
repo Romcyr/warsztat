@@ -16,7 +16,8 @@ public class Main {
                         new KomendaListMechanik(),
                         new KomendaZnajdzPojazd(),
                         new KomendaZnajdzMechanik(),
-                        new KomendaUsunPojazd()
+                        new KomendaUsunPojazd(),
+                        new KomendaUsunMechanik()
 
                 )
         );
