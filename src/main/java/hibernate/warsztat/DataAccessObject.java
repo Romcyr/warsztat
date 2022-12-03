@@ -1,5 +1,6 @@
 package hibernate.warsztat;
 
+import hibernate.warsztat.model.Mechanik;
 import hibernate.warsztat.model.Pojazd;
 import jakarta.persistence.TypedQuery;
 import org.hibernate.Session;
@@ -7,6 +8,7 @@ import org.hibernate.Transaction;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class DataAccessObject <T>{
 
@@ -36,6 +38,17 @@ public class DataAccessObject <T>{
             System.err.println("Błąd: " + e);
         }
         return list;
+    }
+
+    public Optional<T> find (Class<T> tClass, Long id){
+
+        try (Session session = HibernateUtil.INSTANCE.getSessionFactory().openSession()){
+           T encja = session.get(tClass, id);
+            return Optional.ofNullable(encja);
+        }catch (Exception ioe){
+            System.err.println("Błąd bazy: " + ioe);
+        }
+        return Optional.empty();
     }
 
 }
