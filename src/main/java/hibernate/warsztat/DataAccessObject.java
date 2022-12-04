@@ -70,5 +70,40 @@ public class DataAccessObject <T>{
         return false;// wystąpił błąd, rekord nie został usuniety
     }
 
+    public void update(Class<T> tClass, Long id, T encjaAktualizujaca){
+        try (Session session = HibernateUtil.INSTANCE.getSessionFactory().openSession()) {
+            Transaction transaction = session.beginTransaction();
+
+            //Kolejne linie weryfikują to że rekord istnieje i
+            // że będziemy mogli go aktualizować w jednej transacji
+           T encja = session.get(tClass, id);
+            if (encja == null) {
+                System.err.println("nie znaleziono mechanika");
+                return;
+
+            }
+
+            session.merge(encjaAktualizujaca);
+
+            transaction.commit();
+        }catch (Exception e){
+            System.err.println("Błąd: " + e);
+        }
+
+    }
+    public boolean exists(Class<T> tClass, Long id) {
+        try (Session session = HibernateUtil.INSTANCE.getSessionFactory().openSession()) {
+            T encja = session.get(tClass, id);
+            if (encja != null) {
+                return true;
+            }
+        } catch (Exception e) {
+            System.err.println("Błą∂: " + e);
+        }
+        return false;
+
+
+    }
+
 
 }

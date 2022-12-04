@@ -20,7 +20,8 @@ public class Main {
                         new KomendaUsunMechanik(),
                         new KomendaDodajSerwisPojazdu(),
                         new KomendaZnajdzSerwisPojazdu(),
-                        new KomendaUsunSerwisPojazdu()
+                        new KomendaUsunSerwisPojazdu(),
+                        new KomendaAktualizujMechanik()
 
                 )
         );
